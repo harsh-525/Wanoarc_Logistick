@@ -36,13 +36,16 @@ def placestock(request):
 
     if validateUser(request):
         stockid = request.POST.get('stockid')
+
         if stockid is None:
             return render(request, 'customer_home.html')
+
         stocks = Stock.objects.filter(id=stockid).first()
         #print(stocks)
         context = {"stock": stocks }
         return render(request, 'customer_placestock.html',context)
     return render(request, 'customer_login.html')
+
 
 def addtobag(request):
 
