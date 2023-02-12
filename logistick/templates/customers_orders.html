@@ -1,0 +1,73 @@
+{% extends "customer_base.html" %}
+{% load i18n %}
+
+{% block customer %}
+<style>
+      .product-tile{
+    display: inline-block;
+
+    width: 95%;
+    height: auto;
+    margin: 1%;
+    padding: 1%;
+    text-align: center;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 8px #ddd;
+  }
+   .product-tile-p{
+    display: inline-block;
+     background-color: white;
+     border-radius: 7%;
+    width: 20%;
+    height: auto;
+    margin: 1%;
+    padding: 3%;
+    align-items: flex-start;
+    text-align: center;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 8px #ddd;
+  }
+  .product-tile h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  .product-tile p {
+    margin-bottom: 1rem;
+  }
+
+</style>
+{% for order in orders %}
+  <div class="product-tile">
+    <h2>Order ID:{{order.first.order_id.id}}</h2>
+
+    {% for item in order %}
+      <div class="product-tile-p">
+        <h3 style="text-align: left">Vendor : {{item.stock_id.by}}</h3>
+        <h4 style="text-align: left">Item : {{item.stock_id.name}}</h4>
+        <h3 style="text-align: left">Price : {{item.stock_id.price}} $</h3>
+        <h3 style="text-align: left">Quantity : {{item.stock_id.quantity}} $</h3>
+      </div>
+    {% endfor %}
+
+    <p>Total Price: $0.00</p>
+  </div>
+{% endfor %}
+<script>
+  // JavaScript code to add a new line after every 4 products
+  const productTiles = document.querySelectorAll(".product-tile");
+  for (let i = 0; i < productTiles.length; i++) {
+    if ((i + 1) % 3 === 0) {
+      const br = document.createElement("br");
+      productTiles[i].after(br);
+    }
+  }
+  const productTiles = document.querySelectorAll(".product-tile-p");
+  for (let i = 0; i < productTiles.length; i++) {
+    if ((i + 1) % 3 === 0) {
+      const br = document.createElement("br");
+      productTiles[i].after(br);
+    }
+  }
+</script>
+
+{% endblock %}

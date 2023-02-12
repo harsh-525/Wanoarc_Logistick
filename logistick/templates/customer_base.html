@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<style>
+
+.dashboard-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 20px 0;
+  border-radius: 10px;
+  background-color: #00bfff;
+  color: #ffffff;
+}
+
+.orders-section, .search-section, .bag-section {
+  width: 45%;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #9f9b9b;
+}
+</style>
+
+<div class="dashboard-container">
+  <div class="orders-section">
+    <a href="/corders/"><h2>Orders</h2></a>
+    <!-- display orders here -->
+  </div>
+  <div class="search-section">
+    <a href="#"><h2>Bag</h2></a>
+    <!-- display orders here -->
+  </div>
+  <div class="search-section">
+    <a href="/clogin/"><h2>Search</h2></a>
+  </div>
+</div>
+<script>
+      // show popup function
+      function showPopup(event) {
+        var popup = event.currentTarget.nextElementSibling;
+        popup.style.display = "block";
+      }
+
+      // close popup function
+      var closeBtns = document.getElementsByClassName("close-btn");
+      for (var i = 0; i < closeBtns.length; i++) {
+        closeBtns[i].addEventListener("click", function() {
+          this.parentElement.style.display = "none";
+        });
+      }
+    </script>
+{% block customer %}
+{% endblock %}
+{% endblock %}
