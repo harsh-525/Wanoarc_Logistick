@@ -1,3 +1,147 @@
+
+{% extends "customer_base.html" %}
+{% load i18n %}
+{% block customer %}
+<style>
+
+.dashboard-container1 {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #00bfff;
+  color: #ffffff;
+}
+
+.orders-section1, .search-section {
+  width: 45%;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+}
+
+.product-tile {
+        width: 21%;
+        display: inline-block;
+        padding: 10px;
+        text-align: center;
+        background-color: white;
+        border-radius: 10px;
+        margin: 15px;
+      }
+      .product-tile:hover {
+        background-color: #e4ecf6;
+      }
+
+      .product-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #9f9b9b;
+    display: none;
+          width: auto;
+      height: auto;
+
+  }
+
+  .popup-content {
+      margin: 20px;
+  }
+  input[type="submit"] {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+    }
+
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+  }
+  .blur {
+      background-color: rgba(0,0,0,0.5);
+      filter: blur(5px);
+    }
+
+</style>
+<div class="dashboard-container1">
+  <div class="orders-section1">
+    <a href="/"><h2></h2></a>
+    <!-- display orders here -->
+  </div>
+  <div class="search-section">
+      <form id="form" action="/csearch/" method="get">
+        {% csrf_token %}
+        <input name="search" type="text" placeholder="Enter product name here">
+      </form>
+  </div>
+</div>
+<div>
+    {% for item in stocks %}
+      <div class="product-tile">
+          <div onclick=showDescription("description-popup{{item.id}}")>
+            <p class="product-title">{{item.name}}</p>
+            <p>Vendor Name: {{item.by}}</p>
+            <p>Price: {{item.price}}$</p>
+            <p>Quantity Left: {{item.quantity}}</p>
+          </div>
+            <form action="/placestock/" method="post">
+                {% csrf_token %}
+                <input value="{{item.id}}" name="stockid" hidden="true"/>
+                <input type="submit" value="Order" name="submit" onclick=alert("{{stocks}}") />
+            </form>
+          </div>
+
+
+    <div id="description-popup{{item.id}}" class="popup">
+        <div id="popup-content-head">
+            <h3 style="width: 500px">Description</h3>
+            <div class="popup-content" id="popup-content">
+                {{item.description}}
+            </div>
+        </div>
+        <button class="close-button" onclick=closeDescription("description-popup{{item.id}}")>&times;</button>
+    </div>
+    {% endfor %}
+  </div>
+
+
+<script>
+
+    function showDescription(text) {
+    document.getElementById(text).style.display = "block";
+    }
+
+  function closeDescription(text) {
+    document.getElementById(text).style.display = "none";
+  }
+</script>
 {% extends "base.html" %}
 {% load i18n %}
 
