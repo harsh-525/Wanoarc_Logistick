@@ -16,6 +16,30 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from logistick.views import *
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+path('' , home_page),
+path('admin/', admin.site.urls),
+path('home' , home_page),
+path('logout/',logout_handler),
+
+path('clogin/' , clogin),
+path('cregister/',cregister),
+path('corders/',corders),
+path('csearch/', corders_search),
+path('placestock/', placestock),
+path('addtobag/',addtobag),
+
+path('vlogin/' , vlogin),
+path('vregister/',vregister),
+path('viewstock/', viewstock),
+
+path('supdate/',supdate),
+path('sadd/',sadd),
+
+path('forgot/',forgot),
+path('forgot2/',forgot2),
+path('forgot3/',forgot3),
+
 ]

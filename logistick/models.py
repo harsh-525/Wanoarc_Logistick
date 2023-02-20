@@ -45,3 +45,10 @@ class OrderDetail(models.Model):
     quantity = models.PositiveIntegerField(blank=False)
     price = models.DecimalField(blank=False, decimal_places=2, max_digits=10)
 
+
+class Bag(models.Model):
+    stock_id = models.ForeignKey(Stock, related_name='stock_id', on_delete=models.CASCADE)
+    c_id = models.ForeignKey(Fquestion, related_name='stock_user', on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(blank=False)
+    date = models.DateTimeField(auto_now_add=True)
+
