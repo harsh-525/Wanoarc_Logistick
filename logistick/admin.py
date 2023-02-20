@@ -6,4 +6,5 @@ admin.site.register(Fquestion)
 admin.site.register(Stock)
 admin.site.register(Order)
 admin.site.register(OrderDetail)
+admin.site.register(Bag)
 

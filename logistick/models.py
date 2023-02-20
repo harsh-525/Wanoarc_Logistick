@@ -30,7 +30,7 @@ class Stock(models.Model):
     def __str__(self):
         return self.name
 
-
+# main order model
 class Order(models.Model):
     c_id = models.ForeignKey(Fquestion, related_name='user_id', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
@@ -38,17 +38,26 @@ class Order(models.Model):
     def __str__(self):
         return self.c_id.first_name + ' ordered on ' + str(self.date)
 
-
+# order details which will have all the item details
 class OrderDetail(models.Model):
+    STATUS_CHOICES = [
+        ('Placed', 'Placed'),
+        ('Accepted', 'Accepted'),
+        ('Shipped', 'Shipped'),
+        ('Delivered', 'Delivered'),
+    ('Rejected', 'Rejected'),]
+
     order_id = models.ForeignKey(Order, related_name='orderid_relation', on_delete=models.CASCADE)
     stock_id = models.ForeignKey(Stock, related_name='ordered_item', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(blank=False)
     price = models.DecimalField(blank=False, decimal_places=2, max_digits=10)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='placed')
 
 
 class Bag(models.Model):
     stock_id = models.ForeignKey(Stock, related_name='stock_id', on_delete=models.CASCADE)
     c_id = models.ForeignKey(Fquestion, related_name='stock_user', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(blank=False)
+    total_price = models.DecimalField(default=0, decimal_places=2, max_digits=10)
     date = models.DateTimeField(auto_now_add=True)
 

@@ -36,25 +36,42 @@
   .product-tile p {
     margin-bottom: 1rem;
   }
+  input[type="submit"] {
+    margin-top: 20px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #6c6c6e;
+  }
 
 </style>
-{% for order in orders %}
-  <div class="product-tile">
-    <h2>Order ID:{{order.first.order_id.id}}</h2>
+{% if bagItems %}
+<div class="product-tile">
+{% for item in bagItems %}
 
-    {% for item in order %}
       <div class="product-tile-p">
-        <h3 style="text-align: left">Vendor : {{item.stock_id.by}}</h3>
-        <h4 style="text-align: left">Item : {{item.stock_id.name}}</h4>
-        <h3 style="text-align: left">Price : {{item.stock_id.price}} $</h3>
-        <h3 style="text-align: left">Quantity : {{item.quantity}} </h3>
-        <h3 style="text-align: left">Status : {{item.status}} </h3>
+        <h3 style="text-align: left">Item : {{item.stock_id.name}}</h3>
+        <h4 style="text-align: left">Quantity : {{item.quantity}}</h4>
+        <h3 style="text-align: left">Vendor : {{item.stock_id.by}} </h3>
+        <h3 style="text-align: left">Price Per Unit : {{item.stock_id.price}} $</h3>
+        <h3 style="text-align: left">Total Price: {{item.total_price}} $</h3>
       </div>
-    {% endfor %}
 
-    <p></p>
-  </div>
 {% endfor %}
+    <form action="/cbagsubmit/" method="post">
+        {% csrf_token %}
+        <input type="submit">
+    </form>
+    </div>
+{% else %}
+<h1>Your bag is empty</h1>
+{% endif %}
 <script>
   // JavaScript code to add a new line after every 4 products
   const productTiles = document.querySelectorAll(".product-tile");
