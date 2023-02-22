@@ -19,9 +19,10 @@ from django.urls import path
 from logistick.views import *
 
 urlpatterns = [
+
 path('' , home_page),
 path('admin/', admin.site.urls),
-path('home' , home_page),
+path('home/' , home_page),
 path('logout/',logout_handler),
 
 path('clogin/' , clogin),
@@ -36,8 +37,11 @@ path('addtobag/',addtobag),
 path('vlogin/' , vlogin),
 path('vregister/',vregister),
 path('viewstock/', viewstock),
+path('vorders/',vorders),
+path('oupdate/', oupdate),
 
 path('supdate/',supdate),
+path('sdel/',sdel),
 path('sadd/',sadd),
 
 path('forgot/',forgot),

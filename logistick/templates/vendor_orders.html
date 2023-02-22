@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+
+.icon{
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+table {
+  border-collapse: collapse;
+  width: 95%;
+    margin-top: 3%;
+    margin-left: auto;
+  margin-right: auto;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  position: relative;
+  background-color: #0077be;
+  color: white;
+}
+th:hover{
+  cursor: pointer;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #e8e8e8;
+}
+
+td.status {
+  padding: 6px;
+  text-align: center;
+}
+
+    select {
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+    }
+
+    option {
+      padding: 5px;
+      color: #000;
+      background-color: white;
+    }
+
+    select {
+        background-color: #fff;
+      }
+      .option-placed {
+        background-color: #fafaae;
+      }
+      .option-accepted {
+        background-color: #dffcb9;
+      }
+      .option-shipped {
+        background-color: #ababf5;
+      }
+      .option-delivered {
+        background-color: #ccf595;
+      }
+      .option-rejected {
+        background-color: #ffc1c1;
+      }
+</style>
+
+<table id="order-table">
+  <thead>
+    <tr>
+      <th onclick="sortTable(7)">Package ID<i class="fa fa-sort icon"></i></th>
+      <th onclick="sortTable(0)">Order ID<i class="fa fa-sort icon"></i></th>
+      <th onclick="sortTable(1)">Customer Name<i class="fa fa-sort icon"></i></th>
+      <th onclick="sortTable(2)">Ordered Date<i class="fa fa-sort icon"></i></th>
+      <th onclick="sortTable(3)">Stock Name<i class="fa fa-sort icon"></i></th>
+      <th onclick="sortTable(4)">Quantity<i class="fa fa-sort icon"></i></th>
+      <th onclick="sortTable(5)">Price<i class="fa fa-sort icon"></i></th>
+      <th onclick="sortTable(6)">Status<i class="fa fa-sort icon"></i></th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for order in orders %}
+    <tr>
+      <td>{{order.order_id.id}}</td>
+      <td>{{order.id}}</td>
+      <td>{{order.order_id.c_id}}</td>
+      <td>{{order.order_id.date}}</td>
+      <td>{{order.stock_id.name}}</td>
+      <td>{{order.quantity}}</td>
+      <td>{{order.price}}</td>
+      <td>
+        {% if order.status == 'placed' %}
+        <select class="option-placed">
+          <option selected="selected" value="Placed">Placed</option>
+          <option value="Accepted">Accepted</option>
+          <option value="Shipped">Shipped</option>
+          <option value="Delivered">Delivered</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+          {% elif order.status == 'Accepted' %}
+        <select class="option-accepted">
+          <option value="Placed">Placed</option>
+          <option selected="selected" value="Accepted">Accepted</option>
+          <option value="Shipped">Shipped</option>
+          <option value="Delivered">Delivered</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+          {% elif order.status == 'Delivered' %}
+        <select class="option-delivered">
+          <option value="Placed">Placed</option>
+          <option value="Accepted">Accepted</option>
+          <option value="Shipped">Shipped</option>
+          <option selected="selected" value="Delivered">Delivered</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+          {% elif order.status == 'Shipped' %}
+        <select class="option-shipped">
+          <option value="Placed">Placed</option>
+          <option value="Accepted">Accepted</option>
+          <option selected="selected" value="Shipped">Shipped</option>
+          <option value="Delivered">Delivered</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+          {% elif order.status == 'Rejected' %}
+        <select class="option-rejected">
+          <option value="Placed">Placed</option>
+          <option value="Accepted">Accepted</option>
+          <option value="Shipped">Shipped</option>
+          <option value="Delivered">Delivered</option>
+          <option selected="selected" value="Rejected">Rejected</option>
+        </select>
+          {% endif %}
+      </td>
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+
+<script>
+      $(document).ready(function() {
+        $('select').on('change', function() {
+          var selectedValue = $(this).val();
+          $(this).removeClass();
+          $(this).addClass('option-' + selectedValue.toLowerCase());
+
+          console.log(this.parentNode.parentNode.children[1].textContent)
+          $.post("/oupdate/", {
+            id: this.parentNode.parentNode.children[1].textContent,
+            value: selectedValue,
+            csrfmiddlewaretoken: getCookie("csrftoken")
+          });
+
+        });
+      });
+
+window.onload = function() {
+  var select = document.querySelector('select');
+  select.addEventListener('change', function() {
+    var selectedValue = this.value;
+    this.className = '';
+    this.classList.add('option-' + selectedValue.toLowerCase());
+  });
+};
+
+      function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("order-table");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+          switching = false;
+          rows = table.rows;
+          for (i = 1; i < (rows.length - 1); i++) {
+            shouldSwitch = false;
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+            if (dir == "asc") {
+              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                shouldSwitch= true;
+                break;
+              }
+            } else if (dir == "desc") {
+              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                shouldSwitch = true;
+                break;
+              }
+            }
+          }
+          if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount ++;
+          } else {
+            if (switchcount == 0 && dir == "asc") {
+              dir = "desc";
+              switching = true;
+            }
+          }
+        }
+      }
+</script>
+
+
+
+{% endblock %}

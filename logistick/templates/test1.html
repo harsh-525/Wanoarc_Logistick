@@ -1,0 +1,170 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #0077be;
+  color: white;
+}
+th:hover{
+  cursor: pointer;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #e8e8e8;
+}
+
+td.status {
+  padding: 6px;
+  text-align: center;
+}
+
+    select {
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+    }
+
+    option {
+      padding: 5px;
+      color: #000;
+      background-color: white;
+    }
+
+    select {
+        background-color: #fff;
+      }
+      .option-placed {
+        background-color: #fafaae;
+      }
+      .option-accepted {
+        background-color: #dffcb9;
+      }
+      .option-shipped {
+        background-color: #ababf5;
+      }
+      .option-delivered {
+        background-color: #ccf595;
+      }
+      .option-rejected {
+        background-color: #ffc1c1;
+      }
+</style>
+<table id="order-table">
+  <thead>
+    <tr>
+      <th onclick="sortTable(0)">Order ID</th>
+      <th onclick="sortTable(1)">Customer ID</th>
+      <th onclick="sortTable(2)">Ordered Date</th>
+      <th onclick="sortTable(3)">Stock Name</th>
+      <th onclick="sortTable(4)">Quantity</th>
+      <th onclick="sortTable(5)">Price</th>
+      <th onclick="sortTable(6)">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>101</td>
+      <td>2022-01-01</td>
+      <td>Product A</td>
+      <td>2</td>
+      <td>50</td>
+      <td>
+        <select>
+          <option value="Placed">Placed</option>
+          <option value="Accepted">Accepted</option>
+          <option value="Shipped">Shipped</option>
+          <option value="Delivered">Delivered</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>102</td>
+      <td>2022-01-02</td>
+      <td>Product B</td>
+      <td>3</td>
+      <td>75</td>
+      <td>
+        <select>
+          <option value="Placed">Placed</option>
+          <option value="Accepted">Accepted</option>
+          <option value="Shipped">Shipped</option>
+          <option value="Delivered">Delivered</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+      $(document).ready(function() {
+        $('select').on('change', function() {
+          var selectedValue = $(this).val();
+          $(this).removeClass();
+          $(this).addClass('option-' + selectedValue.toLowerCase());
+        });
+      });
+
+      $(document).ready(function() {
+        $('select').on('load', function() {
+          var selectedValue = $(this).val();
+          $(this).removeClass();
+          $(this).addClass('option-' + selectedValue.toLowerCase());
+        });
+      });
+
+      function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("order-table");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+          switching = false;
+          rows = table.rows;
+          for (i = 1; i < (rows.length - 1); i++) {
+            shouldSwitch = false;
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+            if (dir == "asc") {
+              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                shouldSwitch= true;
+                break;
+              }
+            } else if (dir == "desc") {
+              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                shouldSwitch = true;
+                break;
+              }
+            }
+          }
+          if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount ++;
+          } else {
+            if (switchcount == 0 && dir == "asc") {
+              dir = "desc";
+              switching = true;
+            }
+          }
+        }
+      }
+</script>

@@ -45,7 +45,8 @@ class OrderDetail(models.Model):
         ('Accepted', 'Accepted'),
         ('Shipped', 'Shipped'),
         ('Delivered', 'Delivered'),
-    ('Rejected', 'Rejected'),]
+        ('Rejected', 'Rejected'),
+    ]
 
     order_id = models.ForeignKey(Order, related_name='orderid_relation', on_delete=models.CASCADE)
     stock_id = models.ForeignKey(Stock, related_name='ordered_item', on_delete=models.CASCADE)

@@ -9,9 +9,6 @@ from unicodedata import decimal
 from logistick.models import Fquestion, Stock, OrderDetail, Order, Bag
 
 
-def home_page(request):
-    return render(request, 'home.html')
-
 
 def validateUser(request):
     if request.user.is_authenticated:
@@ -22,7 +19,7 @@ def validateUser(request):
 
 def get_orders_customer(request):
     orders = Order.objects.filter(c_id=request.user.id)
-    # print(orders)
+    #print(orders)
     data = []
     for order in orders:
         data.append(OrderDetail.objects.filter(order_id=order.id))
@@ -32,8 +29,32 @@ def get_orders_customer(request):
 
 def corders(request):
     context = {'orders': get_orders_customer(request)}
+    print(context)
     return render(request, 'customers_orders.html', context)
 
+def home_page(request):
+    if validateUser(request):
+        print("valid user")
+        user = Fquestion.objects.filter(id=request.user.id).first()
+        if user.is_vendor:
+            return redirect('/vlogin')
+        else:
+            return redirect('/clogin')
+    else:
+        print("invalid user")
+        return render(request,"base.html")
+def oupdate(request):
+    if validateUser(request):
+        id = request.POST.get('id')
+        value = request.POST.get('value')
+        print(id)
+        orderupdate = OrderDetail.objects.filter(id = id).first()
+        orderupdate.status = value
+        orderupdate.save()
+        print("saved")
+        messages.warning(request,"Updated")
+        return render(request, 'vendor_orders.html')
+    return redirect('/vlogin')
 
 def placestock(request):
     if validateUser(request):
@@ -192,6 +213,14 @@ def viewstock(request):
     return render(request, 'vendor_home.html', context)
 
 
+def vorders(request):
+    if validateUser(request):
+        orders = OrderDetail.objects.filter(stock_id__v_id=request.user.id)
+        print(orders)
+        return render(request, 'vendor_orders.html', {'orders': orders})
+    else:
+        return redirect('/vlogin')
+
 def sadd(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -213,34 +242,32 @@ def sadd(request):
         return render(request, 'vendor_home.html', context)
 
 
-def supdate(request):
-    if request.method == 'PUT':
-        id = request.POST.get('id')
-        name = request.POST.get('name')
-        quantity = request.POST.get('quantity')
-        price = request.POST.get('price')
+def sdel(request):
 
-        stock = Stock.objects.filter(id=id)[0]
-        stock.name = name
-        stock.quantity = quantity
-        stock.price = price
-        stock.save()
-
-        # print(stock)
-        context = {'stocks': get_v_stocks(request.user.id)}
-        messages.warning(request, "Saved")
-        # todo messages are not working
-        return render(request, 'vendor_home.html', context)
-    elif request.method == 'POST':
+    if request.method == 'POST':
         id = request.POST.get('id')
         print(id)
         stock = Stock.objects.filter(id=id)[0]
         stock.delete()
         context = {'stocks': get_v_stocks(request.user.id)}
         messages.warning(request, "Deleted")
-        # todo messages are not working
         return render(request, 'vendor_home.html', context)
 
+def supdate(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        name = request.POST.get('name')
+        quantity = request.POST.get('quantity')
+        price = request.POST.get('price')
+        print("in update stock")
+        stock = Stock.objects.filter(id=id)[0]
+        stock.name = name
+        stock.quantity = quantity
+        stock.price = price
+        stock.save()
+        context = {'stocks': get_v_stocks(request.user.id)}
+        messages.warning(request, "Saved")
+        return render(request, 'vendor_home.html', context)
 
 def vlogin(request):
     if request.method == 'POST':
