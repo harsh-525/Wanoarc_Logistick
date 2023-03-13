@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+
 
     <style>
 :root {
@@ -32,7 +36,7 @@
 .card {
 	position: sticky;
 	top: 0;
-	padding-top: calc(var(--index) * var(--card-top-offset));
+	padding-top: calc( (var(--index) * var(--card-top-offset)));
 }
 
 @supports (animation-timeline: works) {
@@ -80,20 +84,9 @@
 }
 
 
-/** PAGE STYLING **/
-
-* { /* Poor Man's Reset */
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
-
 body {
-	background: rgb(58 29 43);
-	color: rgb(255, 255, 255);
-	text-align: center;
-
-	font-size: calc(1em + 0.5vw);
+    background: linear-gradient(to bottom, #9ce0f6 0%, #ff99cc 100%);
+	padding-top: 60px;
 }
 
 header,
@@ -116,6 +109,7 @@ header {
 	grid-template-columns: 1fr;
 	grid-template-rows: repeat(var(--numcards), var(--card-height));
 	gap: var(--card-margin);
+
 }
 
 .card {
@@ -123,12 +117,13 @@ header {
 }
 
 .card__content {
+	position: relative;
 	box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
 	background: rgb(255, 255, 255);
 	color: rgb(10, 5, 7);
 	border-radius: 1em;
 	overflow: hidden;
-
+	margin-top: 55px;
 	display: grid;
 	grid-template-areas: "text img";
 	grid-template-columns: 1fr 1fr;
@@ -196,11 +191,10 @@ aside p {
 }
     </style>
 
-  <body>
 
 <header>
 	<div>
-		<h1>Stacking Cards</h1>
+		<h1>LOGISTICK By WANO-ARC</h1>
 		<p></p>
 	</div>
 </header>
@@ -226,7 +220,7 @@ aside p {
 					<p><a href="#top" class="btn btn--accent">Read more</a></p>
 				</div>
 				<figure>
-					<img src="https://codyhouse.co/demo-tutorials/stacking-cards/assets/img/img-2.jpg" alt="Image description">
+					<img src="../../static/images/cd2.jpg" alt="Image description">
 				</figure>
 			</div>
 		</li>
@@ -238,7 +232,7 @@ aside p {
 					<p><a href="#top" class="btn btn--accent">Read more</a></p>
 				</div>
 				<figure>
-					<img src="https://codyhouse.co/demo-tutorials/stacking-cards/assets/img/img-3.jpg" alt="Image description">
+					<img src="../../static/images/cd4.jpg" alt="Image description">
 				</figure>
 			</div>
 		</li>
@@ -250,20 +244,12 @@ aside p {
 					<p><a href="#top" class="btn btn--accent">Read more</a></p>
 				</div>
 				<figure>
-					<img src="https://codyhouse.co/demo-tutorials/stacking-cards/assets/img/img-2.jpg" alt="Image description">
+					<img src="../../static/images/cd3.jpg" alt="Image description">
 				</figure>
 			</div>
 		</li>
 	</ul>
 </main>
-<aside>
-<p>data</p>
-<p>ythjgvbj</p>
-<p>fyguh</p>
-<p>gyhj</p>
-<p>yguiihuyh</p>
-<p>ghijoi</p>
 
-</aside>
-    </body>
 
+{% endblock %}

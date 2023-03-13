@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+
+<script>
+    $(window).scroll(function(e){
+  parallax();
+});
+
+function parallax(){
+  var scrolled = $(window).scrollTop();
+  $('.background').css('top',-(scrolled*0.15)+'px');
+}
+</script>
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900);
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700,300,200);
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  line-height: 1.6em;
+  font-weight: 300;
+  color: #555;
+}
+
+p {
+  margin-bottom: 2em;
+}
+
+header {
+  border-bottom: solid 1px #e0e0e0;
+  margin: 0 0 20px 0;
+}
+
+.pageTitle,
+.pageSubTitle {
+  font-family: 'Titillium', sans-serif;
+  text-transform: uppercase;
+  color: #333;
+}
+
+.pageTitle {
+  color: #FF7600;
+}
+
+.pageTitle {
+  font-size: 2em;
+  font-weight: 700;
+  line-height: 2em;
+}
+
+.pageSubTitle {
+  margin-bottom: 1em;
+  font-size: 1.4em;
+  font-weight: 300;
+}
+
+.background {
+  background:
+    url("/static/images/home.jpg")
+    repeat;
+  background-size: 100% auto;
+  position: fixed;
+  width: 100%;
+  height: 300%;
+  top: 0;
+  left: 0;
+  z-index: -1
+}
+
+.wrapper {
+  width: 70%;
+  padding: 40px;
+  margin: 20px auto;
+  box-shadow:  0px 3px 3px 1px rgba(0, 0, 0, 0.25);
+}
+
+.slogan {
+  position: fixed;
+  display: block;
+  top: 700px;
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+  background: #222;
+}
+
+.sloganTitle {
+  font-size: 70px;
+  font-weight: 700;
+  line-height: 80px;
+  color: #fff;
+
+  text-shadow: 0px 2px 1px rgba(0, 0, 0, 0.25);
+}
+section{
+  color: black;
+}
+</style>
+
+
+<div class="background">
+</div>
+
+<article class="wrapper">
+  <header>
+    <h1 class="pageTitle">Parallax scrolling</h1>
+    <h2 class="pageSubTitle">With a little bit of jQuery</h2>
+  </header>
+  <section>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat tortor a turpis mattis, in blandit orci venenatis. Quisque justo lacus, rutrum mattis tortor et, aliquam auctor risus. Mauris quis elit turpis. Morbi non nisl nunc. Duis elit quam, lobortis eget pretium sed, eleifend eu dui. Sed molestie ornare suscipit. Phasellus facilisis at quam sed tincidunt. Phasellus eget odio laoreet, dictum augue ac, dictum lorem. Nulla facilisi. Phasellus elit augue, cursus eu ante nec, vestibulum adipiscing mi. Nunc adipiscing nibh risus, sed auctor sapien sodales in. Morbi in purus diam. In id consequat velit, eget sodales enim. Nam a massa sed orci blandit interdum eget et ligula. Pellentesque laoreet semper vulputate.</p>
+
+    <p>Proin laoreet molestie mi ac mattis. Curabitur velit lorem, euismod eget leo sed, imperdiet ullamcorper mauris. Fusce posuere dapibus eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper massa lectus, et tempor orci dapibus non. Pellentesque id enim commodo, scelerisque augue in, pharetra purus. Donec leo odio, consequat non tellus tincidunt, rhoncus porta urna.</p>
+
+    <p>Aenean tincidunt sed metus et mollis. Pellentesque tristique risus ac suscipit ornare. Sed a tempor nisl. Nam imperdiet mauris vel nunc varius, id volutpat elit porta. Etiam eu consectetur dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean sollicitudin fermentum nulla, eu ultricies orci imperdiet sed. Cras vitae quam blandit quam volutpat tincidunt vel vel quam. Ut id dictum nisl, nec commodo augue. Donec sed imperdiet arcu, nec ullamcorper ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis id egestas est. Pellentesque eleifend, nisi quis eleifend blandit, lacus ligula tempus quam, non sagittis eros tortor vel massa. Duis posuere pellentesque arcu in sollicitudin.</p>
+  </section>
+</article>
+
+<article class="wrapper">
+  <header>
+    <h1 class="pageTitle">Another title</h1>
+    <h2 class="pageSubTitle">With just another subtitle</h2>
+  </header>
+  <section>
+    <p>Proin laoreet molestie mi ac mattis. Curabitur velit lorem, euismod eget leo sed, imperdiet ullamcorper mauris. Fusce posuere dapibus eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper massa lectus, et tempor orci dapibus non. Pellentesque id enim commodo, scelerisque augue in, pharetra purus. Donec leo odio, consequat non tellus tincidunt, rhoncus porta urna.</p>
+
+    <p>Aenean tincidunt sed metus et mollis. Pellentesque tristique risus ac suscipit ornare. Sed a tempor nisl. Nam imperdiet mauris vel nunc varius, id volutpat elit porta. Etiam eu consectetur dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean sollicitudin fermentum nulla, eu ultricies orci imperdiet sed. Cras vitae quam blandit quam volutpat tincidunt vel vel quam. Ut id dictum nisl, nec commodo augue. Donec sed imperdiet arcu, nec ullamcorper ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis id egestas est. Pellentesque eleifend, nisi quis eleifend blandit, lacus ligula tempus quam, non sagittis eros tortor vel massa. Duis posuere pellentesque arcu in sollicitudin.</p>
+  </section>
+</article>
+
+<article class="wrapper">
+  <header>
+    <h1 class="pageTitle">Again another title</h1>
+    <h2 class="pageSubTitle">And again another subtitle</h2>
+  </header>
+  <section>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat tortor a turpis mattis, in blandit orci venenatis. Quisque justo lacus, rutrum mattis tortor et, aliquam auctor risus. Mauris quis elit turpis. Morbi non nisl nunc. Duis elit quam, lobortis eget pretium sed, eleifend eu dui. Sed molestie ornare suscipit. Phasellus facilisis at quam sed tincidunt. Phasellus eget odio laoreet, dictum augue ac, dictum lorem. Nulla facilisi. Phasellus elit augue, cursus eu ante nec, vestibulum adipiscing mi. Nunc adipiscing nibh risus, sed auctor sapien sodales in. Morbi in purus diam. In id consequat velit, eget sodales enim. Nam a massa sed orci blandit interdum eget et ligula. Pellentesque laoreet semper vulputate.</p>
+
+    <p>Proin laoreet molestie mi ac mattis. Curabitur velit lorem, euismod eget leo sed, imperdiet ullamcorper mauris. Fusce posuere dapibus eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper massa lectus, et tempor orci dapibus non. Pellentesque id enim commodo, scelerisque augue in, pharetra purus. Donec leo odio, consequat non tellus tincidunt, rhoncus porta urna.</p>
+
+    <p>Aenean tincidunt sed metus et mollis. Pellentesque tristique risus ac suscipit ornare. Sed a tempor nisl. Nam imperdiet mauris vel nunc varius, id volutpat elit porta. Etiam eu consectetur dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean sollicitudin fermentum nulla, eu ultricies orci imperdiet sed. Cras vitae quam blandit quam volutpat tincidunt vel vel quam. Ut id dictum nisl, nec commodo augue. Donec sed imperdiet arcu, nec ullamcorper ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis id egestas est. Pellentesque eleifend, nisi quis eleifend blandit, lacus ligula tempus quam, non sagittis eros tortor vel massa. Duis posuere pellentesque arcu in sollicitudin.</p>
+  </section>
+</article>
+
+
+{% endblock %}

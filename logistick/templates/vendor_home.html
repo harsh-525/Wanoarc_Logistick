@@ -4,15 +4,19 @@
 {% block content %}
 <style>
     .popup-form {
-        background-color: lightyellow;
+        background-color: white;
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         padding: 20px;
         border: 1px solid grey;
+        display: none;
+        width: auto;
+        height: auto;
       }
       .homepage {
+        margin-top: 70px;
         height: auto;
         display: flex;
         align-items: center;
@@ -33,6 +37,10 @@
         justify-content: center;
         margin: 20px;
         text-align: center;
+        border: 1px solid black;
+      }
+      .icon:hover{
+        background-color: #dddddd;
       }
 
       .icon a {
@@ -56,7 +64,7 @@
     width: 100%;
     border-color: transparent;
     background-color: transparent;
-    text-align: center;
+    text-align: left;
     padding: 7px;
   }
 
@@ -106,7 +114,7 @@
     padding: 8px;
   }
   th {
-    background-color: #5ed060;
+    background-color: #c8ee41;
     color: #fff;
   }
   tr:nth-child(even) {
@@ -114,6 +122,11 @@
   }
   tr:hover {
     background-color: #ddd;
+  }
+
+  .popup-content1 input{
+    border: 1px solid black;
+    margin: 5px;
   }
 
     </style>
@@ -129,7 +142,7 @@
             <h2>Add new stock</h2>
           </a>
             <div id="popup" class="popup-form" style="display:none;">
-              <form id="form" action="/sadd/" method="post">
+              <form class="popup-content1" id="form" action="/sadd/" method="post">
                 {% csrf_token %}
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
@@ -163,7 +176,7 @@
       <th>Stock Name</th>
       <th>Quantity</th>
       <th>Price ($)</th>
-      <th>Edit</th>
+      <th>Action</th>
       <th>Delete</th>
     </tr>
   </thead>

@@ -30,10 +30,14 @@
         width: 100%;
         padding: 10px;
         font-size: 18px;
-        background-color: #da6f37;
+        background-color: black;
         color: #fff;
         cursor: pointer;
       }
+            input[type="submit"]:hover {
+			background: #FFE866;
+			box-shadow: 0 0 20px rgba(143, 133, 133, 0.5);
+		}
       .error {
         color: red;
         font-size: 14px;
@@ -43,15 +47,12 @@
       }
 
       body{
-      background-image: url("/static/images/forget.png");
-      background-size: cover;
-   background-position: center;
     }h1{
           color: white;
       }
     </style>
 
-<h1>Forgot Password Stage Three</h1>
+<h1 style="margin-top: 70px;color: black">Forgot Password Stage Three</h1>
     <form method="POST" action="/forgot3/">
       {% csrf_token %}
       <label for="password">Password:</label>

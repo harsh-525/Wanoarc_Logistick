@@ -24,6 +24,7 @@ def get_orders_customer(request):
     for order in orders:
         data.append(OrderDetail.objects.filter(order_id=order.id))
 
+    print(data.reverse())
     return data
 
 
@@ -42,7 +43,18 @@ def home_page(request):
             return redirect('/clogin')
     else:
         print("invalid user")
-        return render(request,"base.html")
+        return render(request,"home.html")
+
+
+def about(request):
+    return render(request, 'about.html')
+
+def services(request):
+    return render(request, 'services.html')
+
+def contact(request):
+    return render(request, 'contact.html')
+
 def oupdate(request):
     if validateUser(request):
         id = request.POST.get('id')
@@ -64,7 +76,7 @@ def placestock(request):
             return render(request, 'customer_home.html')
 
         stocks = Stock.objects.filter(id=stockid).first()
-        # print(stocks)
+        print(stocks)
         context = {"stock": stocks}
         return render(request, 'customer_placestock.html', context)
     return render(request, 'customer_login.html')
@@ -215,8 +227,8 @@ def viewstock(request):
 
 def vorders(request):
     if validateUser(request):
-        orders = OrderDetail.objects.filter(stock_id__v_id=request.user.id)
-        print(orders)
+        orders = OrderDetail.objects.filter(stock_id__v_id=request.user.id).order_by('-order_id')
+        print(orders.reverse())
         return render(request, 'vendor_orders.html', {'orders': orders})
     else:
         return redirect('/vlogin')

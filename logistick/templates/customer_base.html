@@ -6,23 +6,27 @@
 
 .dashboard-container {
   display: flex;
-  justify-content: space-between;
-  border-radius: 10px;
+  justify-content: center;
   border: 0;
-  margin: 7px;
-  background-color: #00bfff;
-  color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.1);;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  color: white;
+  box-shadow: 0 0 20px rgba(159, 157, 157, 0.5);
+  margin-top: 50px;
 }
 
 .orders-section, .search-section, .bag-section {
   width: 45%;
+
 }
+.search-section a div{
+  height: auto;
+  padding: 10px;
+  text-align: center;
+}
+
 
 input[type="text"] {
   padding: 10px;
-  font-size: 16px;
+  font-size: 10px;
   border-radius: 5px;
   border: 1px solid #9f9b9b;
 }
@@ -32,19 +36,28 @@ h2{
   text-align: center;
 
 }
-</style>
+.search-section:hover{
+  background-color: #dddddd;
+}
 
+input[type="submit"]:hover {
+			background: #FFE866;
+			box-shadow: 0 0 20px rgba(143, 133, 133, 0.5);
+		}
+.bg{
+
+}
+</style>
+<div class="bg">
 <div class="dashboard-container">
-  <div class="orders-section">
-    <a href="/corders/"><h2>Orders</h2></a>
-    <!-- display orders here -->
+  <div class="search-section">
+    <a href="/corders/"><div>Orders</div></a>
   </div>
   <div class="search-section">
-    <a href="/cbag/"><h2>Bag</h2></a>
-    <!-- display orders here -->
+    <a href="/cbag/"><div>Bag</div></a>
   </div>
   <div class="search-section">
-    <a href="/clogin/"><h2>Search</h2></a>
+    <a href="/clogin/"><div>Search</div></a>
   </div>
 </div>
 <script>
@@ -64,4 +77,5 @@ h2{
     </script>
 {% block customer %}
 {% endblock %}
+  </div>
 {% endblock %}
