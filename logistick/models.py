@@ -12,7 +12,7 @@ class Fquestion(User):
     question_two = models.CharField(max_length=200, blank=False)
     answer_two = models.CharField(max_length=50, blank=False)
     is_vendor = models.BooleanField(default=True)
-
+    address = models.CharField(max_length=200, default=None)
     class Meta:
         verbose_name = ("F_user_detail")
 

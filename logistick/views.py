@@ -179,6 +179,10 @@ def cbagsubmit(request):
             return redirect('/cbag')
     return redirect('/clogin')
 
+def profile(request,id):
+    user = Fquestion.objects.get(id=int(id))
+    print(user.first_name)
+    return render(request, 'profile.html', {'userobj': user})
 
 def clogin(request):
     if request.method == 'POST':
@@ -240,7 +244,8 @@ def sadd(request):
         company = request.POST.get('company')
         price = request.POST.get('price')
         user = Fquestion.objects.filter(id=request.user.id)
-        newStock = Stock.objects.create(v_id=user[0], name=name, quantity=quantity, price=price, description="None",
+        description = request.POST.get('description')
+        newStock = Stock.objects.create(v_id=user[0], name=name, quantity=quantity, price=price, description=description,
                                         by=company)
         newStock.save()
         context = {'stocks': get_v_stocks(request.user.id)}
@@ -401,9 +406,11 @@ def cregister(request):
         answer_one = request.POST.get('answer_one')
         question_two = request.POST.get('question_two')
         answer_two = request.POST.get('answer_two')
+        address = request.POST.get('address')
+
         customer = False
         flag = register_User(request, first_name, last_name, email, username, password, question_one, answer_one,
-                             question_two, answer_two, customer)
+                             question_two, answer_two, customer, address)
 
         if flag:
             return render(request, "customer_login.html")
@@ -424,9 +431,10 @@ def vregister(request):
         answer_one = request.POST.get('answer_one')
         question_two = request.POST.get('question_two')
         answer_two = request.POST.get('answer_two')
+        address = request.POST.get('address')
         customer = True
         flag = register_User(request, first_name, last_name, email, username, password, question_one, answer_one,
-                             question_two, answer_two, customer)
+                             question_two, answer_two, customer, address)
 
         if flag:
             return render(request, "vendor_login.html")
@@ -437,14 +445,14 @@ def vregister(request):
 
 
 def register_User(request, first_name, last_name, email, username, password, question_one, answer_one, question_two,
-                  answer_two, user):
+                  answer_two, user, address):
     try:
         validateEmail(email)
         new_user = Fquestion.objects.create(question_one=question_one, answer_one=answer_one, question_two=question_two,
                                             answer_two=answer_two,
                                             username=username, password=password, last_name=last_name,
                                             first_name=first_name
-                                            , is_vendor=user, email=email)
+                                            , is_vendor=user, email=email, address=address)
         new_user.set_password(password)
         new_user.save()
         return True

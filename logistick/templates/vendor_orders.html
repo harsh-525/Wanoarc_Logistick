@@ -26,6 +26,9 @@ th, td {
   text-align: left;
   padding: 8px;
 }
+td a{
+  font-size: 16px;
+}
 
 th {
   position: relative;
@@ -104,7 +107,7 @@ td.status {
     <tr>
       <td>{{order.order_id.id}}</td>
       <td>{{order.id}}</td>
-      <td>{{order.order_id.c_id}}</td>
+      <td><a href="/profile/{{order.order_id.c_id.id}}">{{order.order_id.c_id.first_name}} {{order.order_id.c_id.last_name}}</a></td>
       <td>{{order.order_id.date}}</td>
       <td>{{order.stock_id.name}}</td>
       <td>{{order.quantity}}</td>
@@ -156,6 +159,7 @@ td.status {
    {% endfor %}
   </tbody>
 </table>
+{{order.order_id.c_id}}
 
 <script>
       $(document).ready(function() {

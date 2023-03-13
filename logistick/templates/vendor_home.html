@@ -124,9 +124,13 @@
     background-color: #ddd;
   }
 
-  .popup-content1 input{
+  .popup-content1 input, textarea{
     border: 1px solid black;
     margin: 5px;
+  }
+  textarea{
+    height: 45px;
+    width: 230px;
   }
 
     </style>
@@ -155,6 +159,9 @@
                 <br><br>
                 <label for="price">Price:</label>
                 <input type="text" id="price" name="price" required>
+                <br><br>
+                <label for="description">Description:</label><br>
+                <textarea type="text" id="description" name="description"></textarea>
                 <br><br>
                 <button type="submit">Submit</button>
                 <button type="button" id="close-button">Close</button>

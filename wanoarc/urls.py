@@ -27,6 +27,7 @@ path('logout/',logout_handler),
 path('about/', about),
 path('services/', services),
 path('contact/', contact),
+path('profile/<id>', profile),
 
 path('clogin/' , clogin),
 path('cregister/',cregister),

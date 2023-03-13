@@ -5,6 +5,8 @@
   <style>
 
   </style>
+  <title>Logistic</title>
+  <link rel="icon" type="image/png" href="../../static/images/logo.png"/>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
 
@@ -164,7 +166,7 @@
 
     {% if user.username %}
       <a href="#"><div>Welcome: {{user.username}}</div></a>
-      <a href="#">Profile</a>
+      <a href="/profile/{{user.id}} ">Profile</a>
       <a href="/logout">Logout</a>
     {% else %}
       <a href="/vlogin">Vendor</a>
@@ -176,7 +178,6 @@
   </div>
 
 <img src="/static/images/logo.png" class="ribbon" alt="" />
-
 {% block content %}
 {% endblock %}
 {% endblock %}
