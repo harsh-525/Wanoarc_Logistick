@@ -113,6 +113,7 @@ input[type="text"] {
             <p>Vendor Name: {{item.by}}</p>
             <p>Price: {{item.price}}$</p>
             <p>Quantity Left: {{item.quantity}}</p>
+              <p>Category: {{item.category}}</p>
           </div>
             <form action="/placestock/" method="post">
                 {% csrf_token %}

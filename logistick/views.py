@@ -132,17 +132,31 @@ def get_all_stocks():
 def get_filter_stocks(string):
     stocks = Stock.objects.filter(Q(by__contains=string)
                                   | Q(name__contains=string)
-                                  | Q(description__contains=string))
+                                  | Q(description__contains=string)
+                                  | Q(category__contains=string))
     print(stocks)
     return stocks
 
+def splitter(sentence=''):
+
+    wordsList = sentence.split(" ")
+    print(wordsList)
+    results = []
+    for word in wordsList:
+        results.append(get_filter_stocks(word))
+    print(results)
+    listStocks = []
+    for sub in results:
+        for item in sub:
+            listStocks.append(item)
+    return list(dict.fromkeys(listStocks))
 
 def corders_search(request):
     word = (request.GET.get("search"))
     if validateUser(request):
         orders = get_orders_customer(request)
-        print(orders)
-        context = {'stocks': get_filter_stocks(word)}
+        #splitter(word)
+        context = {'stocks': splitter(word)}
         return render(request, 'customer_home.html', context)
     return render(request, 'customer_login.html')
 
@@ -243,10 +257,11 @@ def sadd(request):
         quantity = request.POST.get('quantity')
         company = request.POST.get('company')
         price = request.POST.get('price')
+        category = request.POST.get('category')
         user = Fquestion.objects.filter(id=request.user.id)
         description = request.POST.get('description')
         newStock = Stock.objects.create(v_id=user[0], name=name, quantity=quantity, price=price, description=description,
-                                        by=company)
+                                        by=company, category=category)
         newStock.save()
         context = {'stocks': get_v_stocks(request.user.id)}
         messages.warning(request, "Saved")

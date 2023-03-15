@@ -26,6 +26,7 @@ class Stock(models.Model):
     quantity = models.PositiveIntegerField(blank=False)
     price = models.DecimalField(blank=False, decimal_places=2, max_digits=10)
     last_updated_date = models.DateTimeField(auto_now_add=True)
+    category = models.CharField(max_length=50, default="test", blank=False)
 
     def __str__(self):
         return self.name
