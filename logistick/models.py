@@ -12,7 +12,7 @@ class Fquestion(User):
     question_two = models.CharField(max_length=200, blank=False)
     answer_two = models.CharField(max_length=50, blank=False)
     is_vendor = models.BooleanField(default=True)
-
+    address = models.CharField(max_length=200, default=None)
     class Meta:
         verbose_name = ("F_user_detail")
 
@@ -26,6 +26,7 @@ class Stock(models.Model):
     quantity = models.PositiveIntegerField(blank=False)
     price = models.DecimalField(blank=False, decimal_places=2, max_digits=10)
     last_updated_date = models.DateTimeField(auto_now_add=True)
+    category = models.CharField(max_length=50, default="test", blank=False)
 
     def __str__(self):
         return self.name
@@ -45,7 +46,8 @@ class OrderDetail(models.Model):
         ('Accepted', 'Accepted'),
         ('Shipped', 'Shipped'),
         ('Delivered', 'Delivered'),
-    ('Rejected', 'Rejected'),]
+        ('Rejected', 'Rejected'),
+    ]
 
     order_id = models.ForeignKey(Order, related_name='orderid_relation', on_delete=models.CASCADE)
     stock_id = models.ForeignKey(Stock, related_name='ordered_item', on_delete=models.CASCADE)
