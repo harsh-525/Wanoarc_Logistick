@@ -1,0 +1,122 @@
+{% extends "customer_base.html" %}
+{% load i18n %}
+{% block customer %}
+    <style>
+      .product-info {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        height: auto;
+      }
+      .left-section {
+        width: 70%;
+        height: auto;
+        padding: 20px;
+      }
+      .right-section {
+        width: 30%;
+        height: auto;
+        padding: 20px;
+        text-align: center;
+      }
+      h1 {
+        font-size: 2em;
+        margin-bottom: 20px;
+      }
+      p {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+      input[type="number"] {
+        width: 60%;
+        padding: 10px;
+        font-size: 1.2em;
+        margin-bottom: 20px;
+      }
+      button {
+        width: 60%;
+        padding: 10px;
+        font-size: 1.2em;
+        background-color: green;
+        color: white;
+        border: none;
+      }
+      .product-info {
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .specification-table {
+        margin-top: 30px;
+        border-collapse: collapse;
+        width: 100%;
+
+      }
+
+      .specification-table td, .specification-table th {
+        border: 1px solid #ddd;
+        padding: 8px;
+          text-align: center;
+      }
+
+      .specification-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      .specification-table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        background-color: #4CAF50;
+        color: white;
+      }
+    </style>
+<h1 style="text-align: center">Product Information</h1>
+
+<div class="product-info">
+    <div class="left-section">
+        <!DOCTYPE html>
+
+    <div class="product-info">
+      <table class="specification-table">
+        <tr>
+          <th>Product Name</th>
+          <td>{{stock.name}}</td>
+        </tr>
+        <tr>
+          <th>Stock ID</th>
+          <td>{{stock.id}}</td>
+        </tr>
+        <tr>
+          <th>Vendor Name</th>
+          <td>{{stock.by}}</td>
+        </tr>
+        <tr>
+          <th>Price</th>
+          <td>${{stock.price}}</td>
+        </tr>
+        <tr>
+          <th>Quantity</th>
+          <td>{{stock.quantity}}</td>
+        </tr>
+      </table>
+    </div>
+
+      </div>
+      <div class="right-section">
+        <form id="form" action="/addtobag/" method="post">
+          {% csrf_token %}
+          <input name="stockid" value="{{stock.id}}" hidden="True">
+          <input type="number" name="quantity" placeholder="Enter Quantity" required min="1">
+          <button>Add to Bag</button>
+        </form>
+      </div>
+    </div>
+{% endblock %}
