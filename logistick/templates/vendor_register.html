@@ -45,9 +45,21 @@
   input[type="submit"]:hover {
     background-color: blue;
   }
+
+  .textarea{
+  width: 500px;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  background-color: white;
+  font-size: 16px;
+  resize: none;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+  }
 </style>
 
-<form method="POST" action="/vregister/">
+<form method="POST" action="/vregister/" style="margin-top: 70px">
       {% csrf_token %}
   <h1>Register Vendor</h1>
   <label for="first_name">First Name:</label>
@@ -76,6 +88,10 @@
 
   <label for="answer_two">Answer Two:</label>
   <input type="text" id="answer_two" name="answer_two" required>
+
+  <label for="address">Address:</label>
+  <textarea id="address" name="address" class="textarea" required></textarea><br>
+
 
   <input type="submit" value="Submit">
 </form>
