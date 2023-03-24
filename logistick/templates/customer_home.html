@@ -7,19 +7,14 @@
 .dashboard-container1 {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #00bfff;
-  color: #ffffff;
+      color: #ffffff;
 }
 
-.orders-section1, .search-section {
-  width: 45%;
+.orders-section1{
+  width: 30%;
+    margin-right: 100px;
 }
 
-h2 {
-  margin-bottom: 20px;
-}
 
 input[type="text"] {
   padding: 10px;
@@ -37,6 +32,9 @@ input[type="text"] {
         background-color: white;
         border-radius: 10px;
         margin: 15px;
+    box-shadow: 0 0 20px rgba(159, 157, 157, 0.5);
+    border: black thin;
+
       }
       .product-tile:hover {
         background-color: #e4ecf6;
@@ -88,6 +86,11 @@ input[type="text"] {
       background-color: rgba(0,0,0,0.5);
       filter: blur(5px);
     }
+  .search-section1{
+      padding: 5px;
+      margin-right: 11px;
+      width: 30%;
+  }
 
 </style>
 <div class="dashboard-container1">
@@ -95,10 +98,10 @@ input[type="text"] {
     <a href="/"><h2></h2></a>
     <!-- display orders here -->
   </div>
-  <div class="search-section">
+  <div class="search-section1">
       <form id="form" action="/csearch/" method="get">
         {% csrf_token %}
-        <input name="search" type="text" placeholder="Enter product name here">
+        <input name="search" type="text" placeholder="Search Eg: Album Meat etc.">
       </form>
   </div>
 </div>
@@ -110,6 +113,7 @@ input[type="text"] {
             <p>Vendor Name: {{item.by}}</p>
             <p>Price: {{item.price}}$</p>
             <p>Quantity Left: {{item.quantity}}</p>
+              <p>Category: {{item.category}}</p>
           </div>
             <form action="/placestock/" method="post">
                 {% csrf_token %}
@@ -142,6 +146,5 @@ input[type="text"] {
     document.getElementById(text).style.display = "none";
   }
 </script>
-
 
 {% endblock %}
