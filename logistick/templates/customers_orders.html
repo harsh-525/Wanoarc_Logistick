@@ -36,6 +36,11 @@
   .product-tile p {
     margin-bottom: 1rem;
   }
+  body{
+      background-image: url("/static/images/home.jpg");
+      background-size: cover;
+   background-position: center;
+    }
 
 </style>
 {% for order in orders %}
@@ -47,11 +52,12 @@
         <h3 style="text-align: left">Vendor : {{item.stock_id.by}}</h3>
         <h4 style="text-align: left">Item : {{item.stock_id.name}}</h4>
         <h3 style="text-align: left">Price : {{item.stock_id.price}} $</h3>
-        <h3 style="text-align: left">Quantity : {{item.stock_id.quantity}} $</h3>
+        <h3 style="text-align: left">Quantity : {{item.quantity}} </h3>
+        <h3 style="text-align: left">Status : {{item.status}} </h3>
       </div>
     {% endfor %}
 
-    <p>Total Price: $0.00</p>
+    <p></p>
   </div>
 {% endfor %}
 <script>
