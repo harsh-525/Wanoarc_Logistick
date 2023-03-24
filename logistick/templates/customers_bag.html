@@ -1,0 +1,93 @@
+
+{% extends "customer_base.html" %}
+{% load i18n %}
+
+{% block customer %}
+
+<style>
+      .product-tile{
+    display: inline-block;
+
+    width: 95%;
+    height: auto;
+    margin: 1%;
+    padding: 1%;
+    text-align: center;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 8px #ddd;
+  }
+   .product-tile-p{
+    display: inline-block;
+     background-color: white;
+     border-radius: 7%;
+    width: 20%;
+    height: auto;
+    margin: 1%;
+    padding: 3%;
+    align-items: flex-start;
+    text-align: center;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 8px #ddd;
+  }
+  .product-tile h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  .product-tile p {
+    margin-bottom: 1rem;
+  }
+  input[type="submit"] {
+    margin-top: 20px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #6c6c6e;
+  }
+
+</style>
+{% if bagItems %}
+<div class="product-tile">
+{% for item in bagItems %}
+
+      <div class="product-tile-p">
+        <h3 style="text-align: left">Item : {{item.stock_id.name}}</h3>
+        <h4 style="text-align: left">Quantity : {{item.quantity}}</h4>
+        <h3 style="text-align: left">Vendor : {{item.stock_id.by}} </h3>
+        <h3 style="text-align: left">Price Per Unit : {{item.stock_id.price}} $</h3>
+        <h3 style="text-align: left">Total Price: {{item.total_price}} $</h3>
+      </div>
+
+{% endfor %}
+    <form action="/cbagsubmit/" method="post">
+        {% csrf_token %}
+        <input type="submit">
+    </form>
+    </div>
+{% else %}
+<h1>Your bag is empty</h1>
+{% endif %}
+<script>
+  // JavaScript code to add a new line after every 4 products
+  const productTiles = document.querySelectorAll(".product-tile");
+  for (let i = 0; i < productTiles.length; i++) {
+    if ((i + 1) % 3 === 0) {
+      const br = document.createElement("br");
+      productTiles[i].after(br);
+    }
+  }
+  const productTiles = document.querySelectorAll(".product-tile-p");
+  for (let i = 0; i < productTiles.length; i++) {
+    if ((i + 1) % 3 === 0) {
+      const br = document.createElement("br");
+      productTiles[i].after(br);
+    }
+  }
+</script>
+
+{% endblock %}

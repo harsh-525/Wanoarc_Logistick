@@ -1,19 +1,23 @@
-{% extends "base.html" %}
+{% extends "customer_base.html" %}
 {% load i18n %}
 
 {% block content %}
 <style>
     body {
-      height: 100vh;
     }
     .container {
-      background-color: white;
+
+      background-color: rgba(255, 255, 255, 0.50);;
       border-radius: 10px;
       padding: 30px;
-      box-shadow: 0 0 10px #ccc;
-      width: 500px;
-      margin-left: 30%;
-      margin-top: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      width: 400px;
+      height: auto;
+      margin-top: 70px;
+      margin-bottom: auto;
+      margin-left: auto;
+      margin-right: auto;
+      font-family: sans-serif;
     }
     a {
       color: black;
@@ -51,6 +55,10 @@
       color: white;
       cursor: pointer;
     }
+    input[type="submit"]:hover {
+			background: #FFE866;
+			box-shadow: 0 0 20px rgba(143, 133, 133, 0.5);
+		}
 
   </style>
 

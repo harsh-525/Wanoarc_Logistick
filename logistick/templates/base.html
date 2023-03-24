@@ -1,8 +1,22 @@
 {% load i18n %}
+{% load static %}
 <html>
 <head>
+  <style>
+
+  </style>
+  <title>Logistic</title>
+  <link rel="icon" type="image/png" href="../../static/images/logo.png"/>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
+
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+      }, 5000);
+    });
+
     $.ajaxSetup({
         headers: { "X-CSRFToken": getCookie("csrftoken") }
     });
@@ -25,8 +39,10 @@
 }
   </script>
   <style>
+
     body {
-      background: linear-gradient(to bottom, #d7f6ac, white);
+      background: white;
+      margin: 0;
     }
     h1 {
       text-align: center;
@@ -43,20 +59,53 @@
       color: black;
     }
     .menu-bar {
-      display: flex;
+      position:fixed;
+	  top:0;
+	  left:0;
+      z-index: 999;
+      display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
       justify-content: center;
-      background-color: #333;
-      height: 50px;
+      background-color: white;
       align-items: center;
-      border-radius: 20px;
+      width: 100%;
     }
     .menu-bar a {
+      display: block;
       text-decoration: none;
-      color: white;
-      margin: 0 20px;
+      color: black;
       font-size: 18px;
       font-family: Arial, sans-serif;
+
+      padding-left: 10px;
+      padding-bottom: 10px;
+      padding-right: 10px;
+      height: 33px;
     }
+    .menu-bar a:hover {
+      --_p: 100%;
+      --_s: .3s;
+      background-color: #dddddd;
+  }
+
+    .menu-bar a  {
+      display: block;
+  --b: 0.1em;   /* the thickness of the line */
+  --c: #1095c1; /* the color */
+
+  color: #0000;
+  padding-block: var(--b);
+  background:
+    linear-gradient(var(--c) 50%,#000 0) 0% calc(100% - var(--_p,0%))/100% 200%,
+    linear-gradient(var(--c) 0 0) 0% var(--_p,0%)/var(--_p,0%) var(--b) no-repeat;
+  -webkit-background-clip: text,padding-box;
+          background-clip: text,padding-box;
+  transition: .3s var(--_s,0s) linear,background-size .3s calc(.3s - var(--_s,0s));
+      padding-top: 17px;
+}
     .links {
       text-align: center;
       margin-top: 50px;
@@ -66,7 +115,7 @@
       font-size: 18px;
       font-family: Arial, sans-serif;
       margin: 0 10px;
-      color: white;
+      color: black;
     }
     .notification{
           display:block;
@@ -79,19 +128,45 @@
           margin-top: 10%;
           border-radius: 5px;
       }
+
+    body{
+      background-image: url("/static/images/home.jpg");
+      background-size: cover;
+   background-position: center;
+    }
+    #content {
+        position: relative;
+    }
+    #content img {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+    }
+    .ribbon{
+      z-index: 999;
+      position:fixed;
+	  top:0;
+	  left:0;
+      height: 40px;
+      margin-top: 5px;
+      margin-left: 3px;
+    }
+
   </style>
 </head>
 <body>
 {% block body %}
+
   <div class="menu-bar">
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Contact</a>
+    <a  href="/home">Home</a>
+    <a href="/about">About</a>
+    <a href="/services">Services</a>
+    <a href="/contact">We ARE</a>
 
     {% if user.username %}
       <a href="#"><div>Welcome: {{user.username}}</div></a>
-      <a href="#">Profile</a>
+      <a href="/profile/{{user.id}} ">Profile</a>
       <a href="/logout">Logout</a>
     {% else %}
       <a href="/vlogin">Vendor</a>
@@ -101,6 +176,8 @@
 
 
   </div>
+
+<img src="/static/images/logo.png" class="ribbon" alt="" />
 {% block content %}
 {% endblock %}
 {% endblock %}
@@ -108,7 +185,7 @@
 {% endblock %}
 {% if messages %}
 <div id="notification" class="notification">
-  <p style="text-align: left">Alert:
+  <p style="text-align: left">
   <ul class="messages">
 
     {% for message in messages %}
@@ -123,6 +200,10 @@
     document.getElementById("notification").style.display = "none";
   }, 10000);
 </script>
+</div>
+
+<div id="loadin">
+
 </div>
 </body>
 </html>
